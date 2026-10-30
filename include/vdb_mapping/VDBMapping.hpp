@@ -554,7 +554,7 @@ public:
     openvdb::Vec3d ray_direction = (ray_end_index.asVec3d() - ray_origin_index);
 
     // Starting the ray from the center of the voxel
-    RayT ray(ray_origin_index.asVec3d() + 0.5, ray_direction, 0, 1);
+    RayT ray(ray_origin_index.asVec3d() + 0.5, ray_direction, std::numeric_limits<RayT::RealType>::epsilon(), 1);
     DDAT dda(ray, 0);
     if (ray_end_index != ray_origin_index)
     {
@@ -583,7 +583,7 @@ public:
     const
   {
     openvdb::Vec3d ray_direction = (ray_end_index.asVec3d() - ray_origin_index);
-    RayT ray(ray_origin_index.asVec3d() + 0.5, ray_direction, 0, 1);
+    RayT ray(ray_origin_index.asVec3d() + 0.5, ray_direction, std::numeric_limits<RayT::RealType>::epsilon(), 1);
     intersector->setIndexRay(ray);
     std::vector<RayT::TimeSpan> hits;
     intersector->hits(hits);
@@ -693,7 +693,7 @@ public:
       openvdb::Vec3d ray_direction_index = m_vdb_grid->worldToIndex(direction_norm);
 
 
-      RayT ray(ray_origin_index, ray_direction_index, 0, 1);
+      RayT ray(ray_origin_index, ray_direction_index, std::numeric_limits<RayT::RealType>::epsilon(), 1);
 
       m_volume_ray_intersector->setIndexRay(ray);
       double t0;
